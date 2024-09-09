@@ -5,8 +5,9 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float xvalue = 0.001f;
-    [SerializeField] float zvalue = 0.001f;
+    [SerializeField] float xvalue = 0f;
+    [SerializeField] float yvalue = 0.02f;
+    [SerializeField] float zvalue = 0;
     float factor = 0.10f;
     void Start()
     {
@@ -16,9 +17,9 @@ public class player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float xvalue = Input.GetAxis("Horizontal");
+        float xvalue = Input.GetAxis("Horizontal")*factor;
         float zvalue = Input.GetAxis("Vertical")*factor;
-        transform.Translate(zvalue ,0 ,0);
-        transform.Rotate(0, xvalue ,0);
+        transform.Translate(xvalue ,0 ,zvalue);
+        
     }
 }
