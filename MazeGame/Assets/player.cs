@@ -5,26 +5,29 @@ using UnityEngine;
 public class player : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] float xvalue = 0f;
-    [SerializeField] float yvalue = 0.02f;
-    [SerializeField] float zvalue = 0;
+    
     [SerializeField] private int heath = 5;
-    float factor = 0.10f;
+    [SerializeField] float factor = 10f;
+    private int score = 0;
+
     void Start()
     {
-        
+        PrintInstruction();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float xvalue = Input.GetAxis("Horizontal")*factor;
-        float zvalue = Input.GetAxis("Vertical")*factor;
-        transform.Translate(xvalue ,0 ,zvalue);
-        
+        MovePlayer();
     }
 
-    private int score = 0;
+    void MovePlayer()
+    {
+        float xvalue = Input.GetAxis("Horizontal") * Time.deltaTime * factor;
+        float zvalue = Input.GetAxis("Vertical") * Time.deltaTime * factor;
+        transform.Translate(xvalue, 0, zvalue);
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Collectible"))
@@ -37,7 +40,7 @@ public class player : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.ComapareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
             heath--;
             Debug.Log("Health: " + heath);
@@ -46,5 +49,12 @@ public class player : MonoBehaviour
                 Debug.Log("Game Over");
             }
         }
+    }
+
+    void PrintInstruction()
+    {
+        Debug.Log("Welcome.");
+        Debug.Log("Move with WASD.");
+        Debug.Log("Dont hit the walls.");
     }
 }
