@@ -6,6 +6,7 @@ public class MovingObstacle : MonoBehaviour
 {
     public float speed = 3f;
     public float distance = 10f;
+    public float Rotationspeed = 50f;
     private Vector3 startPos;
     [SerializeField] private int heath = 5;
 
@@ -20,6 +21,7 @@ public class MovingObstacle : MonoBehaviour
     {
         float movement = Mathf.PingPong(Time.time * speed, distance);
         transform.position = new Vector3(startPos.x + movement, startPos.y, startPos.z);
+        transform.Rotate(Vector3.up * Rotationspeed * Time.deltaTime);
     }
 
     void OnCollisionEnter(Collision collision)
@@ -36,4 +38,5 @@ public class MovingObstacle : MonoBehaviour
             GetComponent<MeshRenderer>().material.color = Color.blue;
         }
     }
+    
 }
